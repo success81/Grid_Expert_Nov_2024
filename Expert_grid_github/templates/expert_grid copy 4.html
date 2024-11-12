@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Grid AI</title>
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #f8f9fa;
+            --gradient-start: #4a90e2;
+            --gradient-end: #357abd;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--light-color), #e9ecef);
+            color: var(--dark-color);
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.5em;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes quotesFade {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        select, textarea, input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .radio-option:hover {
+            background: #edf2f7;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin-top: 4px;
+        }
+        
+        .radio-option label {
+            text-transform: none;
+            letter-spacing: normal;
+            font-size: 1rem;
+        }
+        
+        .radio-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 4px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+        
+        .solution {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        
+        .loading-message {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .quote-container {
+            font-style: italic;
+            color: var(--dark-color);
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+            transition: opacity 1s ease-in-out;
+        }
+        
+        .quote-text {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .quote-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .copy-button {
+            background: linear-gradient(135deg, var(--secondary-color), #27ae60);
+        }
+
+        .custom-expert {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .custom-expert textarea {
+            padding-right: 40px;
+        }
+
+        .add-expert {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .remove-expert {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: none;
+            border: none;
+            color: #dc3545;
+            padding: 4px;
+            cursor: pointer;
+            box-shadow: none;
+        }
+
+        .remove-expert:hover {
+            transform: scale(1.1);
+        }
+
+        #expertCountGroup {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        #loading2 {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pdf-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pdf-status {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .simulation-message {
+            color: var(--primary-color);
+            margin: 5px 0;
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .quote-container.active {
+            animation: quotesFade 8s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card step active" id="step1">
+        <h1 class="title">Expert Grid AI</h1>
+        
+        <div class="form-group">
+            <label for="mainQuestion">What main question or problem would you like advice on today?</label>
+            <textarea id="mainQuestion" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="pdf-upload">Upload Reference PDF (optional)</label>
+            <div class="pdf-upload-container">
+                <input type="file" id="pdf-upload" accept=".pdf">
+                <div id="pdf-status" class="pdf-status" style="display: none;">
+                    PDF uploaded ✓ 
+                    <button type="button" onclick="removePDF()" class="remove-pdf">×</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="additionalInfo">Other relevant information (optional)</label>
+            <textarea id="additionalInfo"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label>Expert Selection Mode</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="focused" name="mode" value="focused" required>
+                    <div>
+                        <label for="focused">Focused Expert Mode</label>
+                        <div class="radio-description">Only experts that directly relate to the problem or question</div>
+                    </div>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="creative" name="mode" value="creative">
+                    <div>
+                        <label for="creative">Creative Expert Mode</label>
+                        <div class="radio-description">Experts that have little or no relation to the problem but may bring a different perspective</div>
+                    </div>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="mixed" name="mode" value="mixed">
+                    <div>
+                        <label for="mixed">Mixed Expert Mode</label>
+                        <div class="radio-description">A mixture of Focused and Creative experts</div>
+                    </div>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="custom" name="mode" value="custom">
+                    <div>
+                        <label for="custom">Custom Expert Mode</label>
+                        <div class="radio-description">Define your own expert panel</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" id="expertCountGroup" style="display: none;">
+            <label for="numExperts">Number of Experts</label>
+            <select id="numExperts">
+                <option value="1">1 Expert</option>
+                <option value="2">2 Experts</option>
+                <option value="3">3 Experts</option>
+                <option value="4" selected>4 Experts</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="customExpertsGroup" style="display: none;">
+            <label>Custom Experts</label>
+            <div id="customExpertsList">
+                <div class="custom-expert">
+                    <textarea placeholder="Enter expert description (e.g., 'The Systems Thinker with 20 Years in Complex Problem Solving: Specializes in finding hidden connections and patterns')"></textarea>
+                </div>
+            </div>
+            <button type="button" onclick="addCustomExpert()" class="add-expert">+ Add Expert</button>
+        </div>
+        
+        <div id="loading1" class="loading">
+            <div class="loading-message">Generating follow-up questions...</div>
+            <div id="quote-container1" class="quote-container"></div>
+        </div>
+        
+        <button onclick="generateQuestions()" id="generateQuestionsBtn">Continue</button>
+    </div>
+    
+    <div class="card step" id="step2">
+        <h2>Follow-up Questions</h2>
+        <div id="questions-container"></div>
+        
+        <div class="navigation">
+            <button onclick="showStep(1)">Back</button>
+            <button onclick="generateAdvice()" id="generateAdviceBtn">Get Expert Advice</button>
+        </div>
+
+        <div id="loading2" class="loading">
+            <div class="loading-message">Consulting with simulated experts...</div>
+            <div id="quote-container2" class="quote-container"></div>
+            <div id="simulation-messages"></div>
+        </div>
+    </div>
+    
+    <div class="card step" id="step3">
+        <h2>Expert Analysis</h2>
+        <div class="navigation">
+            <button onclick="showStep(1)">New Analysis</button>
+            <button onclick="copyAnalysis()" class="copy-button">Copy Analysis</button>
+        </div>
+        <div id="analysis-content" class="solution"></div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let analysisMarkdown = '';
+        let quoteInterval1 = null;
+        let quoteInterval2 = null;
+        let usedQuotes = new Set();
+        let pdfContent = '';
+        let loadingQuotes = [];
+
+        // Handle PDF upload and removal
+        document.getElementById('pdf-upload').addEventListener('change', async function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            try {
+                const response = await fetch('/api/upload-pdf', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    pdfContent = data.text;
+                    document.getElementById('pdf-status').style.display = 'inline-flex';
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                console.error('PDF upload error:', error);
+                alert('Error uploading PDF: ' + error.message);
+            }
+        });
+
+        function removePDF() {
+            const fileInput = document.getElementById('pdf-upload');
+            const status = document.getElementById('pdf-status');
+            
+            fileInput.value = '';
+            status.style.display = 'none';
+            pdfContent = '';
+        }
+
+        // Handle mode selection
+        document.querySelectorAll('input[name="mode"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const expertCountGroup = document.getElementById('expertCountGroup');
+                const customExpertsGroup = document.getElementById('customExpertsGroup');
+                
+                if (this.value === 'custom') {
+                    expertCountGroup.style.display = 'block';
+                    customExpertsGroup.style.display = 'block';
+                    updateCustomExpertCount();
+                } else {
+                    expertCountGroup.style.display = 'block';
+                    customExpertsGroup.style.display = 'none';
+                }
+                validateForm();
+            });
+        });
+
+        document.getElementById('numExperts').addEventListener('change', function() {
+            if (document.querySelector('input[name="mode"]:checked')?.value === 'custom') {
+                updateCustomExpertCount();
+            }
+            validateForm();
+        });
+
+        function updateCustomExpertCount() {
+            const numExperts = parseInt(document.getElementById('numExperts').value);
+            const container = document.getElementById('customExpertsList');
+            container.innerHTML = ''; // Clear existing experts
+            
+            for (let i = 0; i < numExperts; i++) {
+                const expertDiv = document.createElement('div');
+                expertDiv.className = 'custom-expert';
+                expertDiv.innerHTML = `
+                    <textarea placeholder="Enter expert description (e.g., 'The Systems Thinker with 20 Years in Complex Problem Solving: Specializes in finding hidden connections and patterns')"></textarea>
+                    ${i > 0 ? '<button type="button" class="remove-expert" onclick="this.parentElement.remove(); validateForm()">×</button>' : ''}
+                `;
+                container.appendChild(expertDiv);
+            }
+            validateForm();
+        }
+
+        function showStep(step) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.querySelector(`#step${step}`).classList.add('active');
+            currentStep = step;
+            stopQuoteRotation();
+        }
+
+        function showLoading(step) {
+            const loadingDiv = document.getElementById(`loading${step}`);
+            if (!loadingDiv) return;
+            
+            loadingDiv.style.display = 'block';
+            if (step === 1) {
+                document.getElementById('generateQuestionsBtn').disabled = true;
+            } else if (step === 2) {
+                document.getElementById('generateAdviceBtn').disabled = true;
+            }
+            
+            if (loadingQuotes && loadingQuotes.length > 0) {
+                startQuoteRotation(step);
+            }
+        }
+
+        function hideLoading(step) {
+            const loadingDiv = document.getElementById(`loading${step}`);
+            if (!loadingDiv) return;
+            
+            loadingDiv.style.display = 'none';
+            if (step === 1) {
+                document.getElementById('generateQuestionsBtn').disabled = false;
+            } else if (step === 2) {
+                document.getElementById('generateAdviceBtn').disabled = false;
+            }
+            stopQuoteRotation();
+        }
+
+        function stopQuoteRotation() {
+            [quoteInterval1, quoteInterval2].forEach(interval => {
+                if (interval) {
+                    clearInterval(interval);
+                }
+            });
+            document.querySelectorAll('.quote-container').forEach(container => {
+                if (container) {
+                    container.classList.remove('active');
+                    container.style.opacity = '0';
+                }
+            });
+        }
+
+        function getRandomQuote() {
+            if (!loadingQuotes || loadingQuotes.length === 0) return null;
+            
+            if (usedQuotes.size === loadingQuotes.length) {
+                usedQuotes.clear();
+            }
+            
+            const availableQuotes = loadingQuotes.filter((_, index) => !usedQuotes.has(index));
+            const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+            const quote = availableQuotes[randomIndex];
+            const quoteIndex = loadingQuotes.indexOf(quote);
+            usedQuotes.add(quoteIndex);
+            
+            return quote;
+        }
+
+        function startQuoteRotation(step) {
+            const container = document.getElementById(`quote-container${step}`);
+            if (!container) return;
+            
+            function displayQuote() {
+                const quote = getRandomQuote();
+                if (!quote) return;
+                
+                container.classList.remove('active');
+                container.innerHTML = `
+                    <div class="quote-text">${quote.text}</div>
+                    <div class="quote-author">— ${quote.author}</div>
+                `;
+                
+                // Force reflow
+                void container.offsetWidth;
+                
+                container.classList.add('active');
+            }
+
+            displayQuote();
+            if (step === 1) {
+                if (quoteInterval1) clearInterval(quoteInterval1);
+                quoteInterval1 = setInterval(displayQuote, 8000);
+            } else {
+                if (quoteInterval2) clearInterval(quoteInterval2);
+                quoteInterval2 = setInterval(displayQuote, 8000);
+            }
+        }
+
+        function updateSimulationMessages(messages) {
+            const container = document.getElementById('simulation-messages');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            messages.forEach((message, index) => {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = 'simulation-message';
+                    div.textContent = message;
+                    container.appendChild(div);
+                }, index * 2000);
+            });
+        }
+
+        async function generateQuestions() {
+            const mainQuestion = document.getElementById('mainQuestion').value;
+            if (!mainQuestion) {
+                alert('Please enter your main question');
+                return;
+            }
+            
+            showLoading(1);
+            try {
+                const response = await fetch('/api/generate-questions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: mainQuestion,
+                        additional_info: document.getElementById('additionalInfo').value,
+                        pdf_content: pdfContent
+                    }),
+                });
+                
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Unknown error occurred');
+                
+                loadingQuotes = data.loadingQuotes;
+                
+                const container = document.getElementById('questions-container');
+                container.innerHTML = data.questions.map((q, i) => `
+                    <div class="form-group">
+                        <label>${q}</label>
+                        <textarea id="answer${i}"></textarea>
+                    </div>
+                `).join('');
+                
+                showStep(2);
+            } catch (error) {
+                console.error('Error generating questions:', error);
+                alert('Error generating questions: ' + error.message);
+            } finally {
+                hideLoading(1);
+            }
+        }
+        
+        async function generateAdvice() {
+            showLoading(2);
+            try {
+                const mainQuestion = document.getElementById('mainQuestion').value;
+                const mode = document.querySelector('input[name="mode"]:checked').value;
+                const answers = {};
+                
+                document.querySelectorAll('[id^="answer"]').forEach((el, i) => {
+                    answers[i] = el.value;
+                });
+
+                // Get number of experts and validate custom experts
+                const numExperts = parseInt(document.getElementById('numExperts').value);
+                const customExperts = [];
+                
+                if (mode === 'custom') {
+                    const expertTextareas = document.querySelectorAll('.custom-expert textarea');
+                    for (let i = 0; i < numExperts; i++) {
+                        const textarea = expertTextareas[i];
+                        if (textarea && textarea.value.trim()) {
+                            customExperts.push('- ' + textarea.value.trim());
+                        }
+                    }
+                    
+                    if (customExperts.length !== numExperts) {
+                        throw new Error(`Please fill in exactly ${numExperts} expert${numExperts > 1 ? 's' : ''}`);
+                    }
+                }
+                
+                const response = await fetch('/api/generate-advice', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: mainQuestion,
+                        mode: mode,
+                        additional_info: document.getElementById('additionalInfo').value,
+                        answers: answers,
+                        num_experts: numExperts,
+                        custom_experts: customExperts,
+                        pdf_content: pdfContent
+                    }),
+                });
+                
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error);
+                
+                loadingQuotes = data.loadingQuotes;
+                startQuoteRotation(2);
+                updateSimulationMessages(data.simulationMessages);
+                
+                document.getElementById('analysis-content').innerHTML = data.html;
+                analysisMarkdown = data.markdown;
+                showStep(3);
+            } catch (error) {
+                console.error('Error generating advice:', error);
+                alert('Error generating advice: ' + error.message);
+            } finally {
+                hideLoading(2);
+}
+        }
+        
+        async function copyAnalysis() {
+            try {
+                await navigator.clipboard.writeText(analysisMarkdown);
+                const button = document.querySelector('.copy-button');
+                button.textContent = 'Analysis Copied!';
+                setTimeout(() => button.textContent = 'Copy Analysis', 2000);
+            } catch (err) {
+                console.error('Copy error:', err);
+                alert('Failed to copy analysis to clipboard');
+            }
+        }
+        
+        function validateForm() {
+            const question = document.getElementById('mainQuestion').value;
+            const mode = document.querySelector('input[name="mode"]:checked');
+            
+            const button = document.getElementById('generateQuestionsBtn');
+            button.disabled = !question || !mode;
+
+            if (mode && mode.value === 'custom') {
+                const numExperts = parseInt(document.getElementById('numExperts').value);
+                const filledExperts = Array.from(document.querySelectorAll('.custom-expert textarea'))
+                    .slice(0, numExperts)
+                    .filter(textarea => textarea.value.trim() !== '').length;
+                button.disabled = button.disabled || filledExperts !== numExperts;
+            }
+        }
+        
+        // Initialize form validation
+        document.getElementById('mainQuestion').addEventListener('input', validateForm);
+        document.querySelectorAll('input[name="mode"]').forEach(radio => {
+            radio.addEventListener('change', validateForm);
+        });
+        
+        // Initialize validation on page load
+        validateForm();
+
+        // Initialize custom expert count if needed
+        if (document.querySelector('input[name="mode"]:checked')?.value === 'custom') {
+            updateCustomExpertCount();
+        }
+    </script>
+</body>
+</html>

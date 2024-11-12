@@ -1,0 +1,240 @@
+Expert Grid AI
+
+I am building an AI that gives expert advice. It’s called Expert grid AI. I built something similar called Problem solver AI. So it will be almost identical. With Expert Grid AI the only   Abstract Concepts and Principles, Professions, Ancient Civilizations and cultures, Professions, Ages and professions- I’m attaching the examples of the experts. These are examples so the you can learn you can use these but you should come up with your own this is just to teach. Use this code I’ve attached to create this app. It should be very similar. I will load the experts file in the root folder and Call it experts.txt
+
+The screen should have the key questions
+
+What main question or problem would you like advice on today? (Mandatory)
+
+Detail level desired (Mandatory)
+-Quick overview, step-by-step information, in-depth analysis
+
+Other relevant information (optional)
+
+
+This will be a radio dial selection (mandatory)
+Focused Expert Mode- Only experts that directly relate to the problem or question
+Creative Expert Mode- Experts that have little or no relation to the problem but may be able to bring you a different perspective
+Mixed Expert Mode- A mixture of Focused and Creative experts
+
+
+
+——
+
+The AI will follow-up with 4 selected questions to get more context 
+
+
+
+—
+
+If they chose Focused mode they will give only provide 4 experts that are directly related to the question
+
+The creative expert mode. The AI will make a random list of 50 experts. It will then choose 4 experts from that list
+
+Mixed expert mode will have 2 randoms and 2 focused
+
+-
+
+The outcome will be an intro addressing the overall problem
+
+Each expert will have one full prompt 
+
+And the intro will be a prompt
+
+
+
+
+
+
+Problem Solving AI concept
+
+Screen 1
+
+The AI will take in initial information. There will be a pulldown where it has them choose from these overall topics - Decision Making, General Problem Solving, Strategic Planning, Risk Assessment, Contingency Planning, Conflict Resolution, Brainstorming, Creative Problem Solving, other
+
+Here are the other fields. -
+
+What are you trying to accomplish?
+
+What are the key question/questions you are trying to answer?
+
+Who are the key stakeholders and how are they related to this?
+
+What constraints or limitations exist?
+
+What are your top priorities related to this?
+
+What resources are available to you related to this?
+
+Related Information
+
+
+Screen 2-
+
+Based on the information given the AI will create 5-10 follow-questions. They will be labeled Q1, Q2,Q3,…. Etc. The person will answer them. 1. Answer, 2. Answer, 3. Answer. The AI will then take this information in and create a 10 chapter outline with the solution. The outline will also have an intro and a closing
+
+
+Screen 3-
+
+This chapter outline will then be presented to the user. A final opportunity will be given to the human to give feedback
+
+
+
+Screen 4- 
+Taking all the feedback. The AI will run a prompt on each chapter and the intro and closing
+
+
+
+Examples of Experts
+
+Abstract Concepts and Principles
+1. The Efficiency Modeler with 15 Years in Operational Excellence
+    * Specializes in lean principles, streamlining processes, and maximizing resource efficiency.
+2. The Risk Assessment Analyst with 25 Years in Strategic Planning
+    * Provides guidance on identifying, assessing, and mitigating potential risks in business projects.
+3. The Iterative Improvement Specialist with 10 Years in Agile Development
+    * Focuses on continuous improvement, feedback loops, and iterative testing to optimize outcomes.
+4. The Ethical Decision-Maker with 30 Years in Corporate Ethics
+    * Offers insights on navigating complex moral decisions and maintaining integrity in business.
+5. The Customer-Centric Designer with 18 Years in User Experience
+    * Advises on creating user-focused products, improving customer satisfaction, and refining experiences.
+
+Professions
+1. A Corporate Lawyer with 20 Years in International Law
+    * Experienced in mergers, acquisitions, and regulatory compliance across multiple countries.
+2. A Chief Financial Officer (CFO) with 25 Years in Global Finance
+    * Expert in financial planning, investment strategies, and cost optimization.
+3. A Software Engineer with 15 Years in Artificial Intelligence and Machine Learning
+    * Specializes in developing and deploying AI-driven solutions for automation and data analysis.
+4. A Marketing Strategist with 18 Years in Digital Media and Branding
+    * Skilled in social media, branding, and campaign management, with a track record of successful digital transformations.
+5. A Human Resources Director with 30 Years in Talent Acquisition and Retention
+    * Offers expertise on workforce planning, employee engagement, and organizational development.
+
+Ancient Civilizations and Cultures
+1. The Egyptian Scribe with 40 Years Documenting and Preserving Knowledge
+    * Offers timeless advice on record-keeping, archival practices, and historical documentation.
+2. The Greek Philosopher with 25 Years in Ethical Philosophy and Rhetoric
+    * Provides insights on ethics, logical reasoning, and approaching challenges through critical thinking.
+3. The Roman Architect with 30 Years in Building Design and Structural Integrity
+    * Focuses on creating strong foundations, efficient designs, and principles of resilience.
+4. The Mayan Astronomer with 20 Years Studying Cosmic Patterns and Cycles
+    * Offers perspectives on timing, natural cycles, and aligning strategies with predictable patterns.
+5. The Chinese Strategist with 35 Years in Military and Government Strategy
+    * Advises on strategic planning, long-term goals, and navigating complex hierarchies.
+
+Ages and Professions
+1. A 75-Year-Old Entrepreneur with 50 Years in Family-Owned Businesses
+    * Brings experience in legacy planning, family dynamics in business, and sustaining long-term ventures.
+2. A 60-Year-Old Historian with 40 Years in Academic Research and Teaching
+    * Provides context on past trends, historical case studies, and lessons applicable to today’s challenges.
+3. A 45-Year-Old Environmental Scientist with 20 Years in Climate Change Research
+    * Offers insights on sustainable practices, eco-friendly policies, and managing environmental impacts.
+4. A 32-Year-Old Start-Up Founder with 10 Years in Tech Innovation
+    * Specializes in launching new products, building teams from scratch, and scaling growth rapidly.
+5. An 85-Year-Old Master Craftsman with 60 Years in Handcrafted Woodworking
+    * Advises on attention to detail, maintaining quality over time, and the importance of patience and precision.
+
+1. Interdisciplinary Thinkers
+* Experts who bring together knowledge from multiple fields, offering holistic, cross-disciplinary solutions.
+* Examples:
+    * The Biotechnologist-Economist – Combines biology and economics to advise on health-related economic issues.
+    * The Behavioral Economist with 20 Years in Human Decision-Making – Specializes in how people make choices, blending psychology and economic principles.
+    * The Sociologist-Engineer – Brings insights into how technology impacts social structures and vice versa.
+2. Cultural Perspectives and Worldviews
+* Advisors from various global or philosophical traditions, providing insights rooted in different cultural approaches to work and problem-solving.
+* Examples:
+    * The Zen Practitioner with 30 Years of Mindfulness and Focus Training – Guides on focus, clarity, and maintaining balance under pressure.
+    * The Indigenous Knowledge Keeper – Shares perspectives on sustainability, community interdependence, and holistic resource use.
+    * The Confucian Scholar – Advises on interpersonal harmony, ethics, and respect for hierarchy in professional relationships.
+3. Human Development and Behavior
+* Experts who focus on the nuances of human behavior, motivation, and personal growth, offering advice for interpersonal dynamics and self-improvement.
+* Examples:
+    * The Developmental Psychologist with 20 Years in Leadership and Growth – Focuses on team dynamics, personal growth, and resilience.
+    * The Motivational Coach with 25 Years of Public Speaking Experience – Offers advice on inspiring teams and effective communication.
+    * The Conflict Resolution Mediator – Advises on managing workplace conflicts and fostering productive relationships.
+4. Historical Eras and Movements
+* Experts rooted in specific historical periods, providing advice based on the values, innovations, and philosophies of those times.
+* Examples:
+    * The Renaissance Scholar – Focuses on creativity, art, and scientific innovation, encouraging a balanced approach to work.
+    * The Enlightenment Thinker – Offers insights on reason, inquiry, and democratic decision-making in team settings.
+    * The Industrial Age Engineer – Brings practical, efficiency-focused solutions to streamline workflows and increase productivity.
+5. Decision-Making Styles
+* Advisors who embody different types of decision-making frameworks, helping users choose the best approach for a given situation.
+* Examples:
+    * The Data-Driven Analyst with 15 Years of Experience in Big Data – Focuses on making decisions based on quantitative insights and data analytics.
+    * The Intuitive Problem-Solver – Encourages relying on intuition, experience, and gut feeling when facing uncertain scenarios.
+    * The Consensus Builder – Advises on collaborative decision-making, valuing input from all team members.
+6. Life Experience and Milestones
+* Experts whose life stages or major personal experiences shape their perspectives, offering practical, lived wisdom.
+* Examples:
+    * The Retired Executive with 40 Years in Corporate Leadership – Advises on legacy, succession planning, and long-term vision.
+    * The Recent Graduate with a Passion for Innovation – Provides a fresh, tech-savvy, and innovative approach to problem-solving.
+    * The Parent of Teenagers Balancing Work and Family – Shares insights on work-life balance, time management, and prioritization.
+7. Philosophical and Ethical Approaches
+* Advisors rooted in specific schools of philosophy, helping users approach issues with values-based decision-making.
+* Examples:
+    * The Stoic Philosopher – Provides advice on resilience, focusing on what you can control, and handling stress.
+    * The Utilitarian Ethicist – Guides on achieving the greatest good for the greatest number, ideal for team-based or impact-driven decisions.
+    * The Existentialist Thinker – Focuses on personal responsibility, authenticity, and finding meaning in work.
+8. Industry-Specific Experts
+* Experts with deep knowledge in particular industries, providing tailored advice for specific professional contexts.
+* Examples:
+    * The Aerospace Engineer with 20 Years in Innovation and Safety – Advises on precision, risk assessment, and technical complexity.
+    * The Retail Strategist with 15 Years in Consumer Behavior – Offers insights into customer-focused strategies and sales.
+    * The Energy Sector Analyst – Focuses on sustainability, renewable energy integration, and navigating industry regulations.
+9. Future-Focused Perspectives
+* Experts who focus on forward-thinking, innovation, and preparing for future trends, helping users stay ahead of the curve.
+* Examples:
+    * The Futurist with 25 Years in Predictive Modeling – Provides insights on emerging trends and future technologies.
+    * The Digital Transformation Expert – Guides on implementing new technologies, digital solutions, and adapting to industry disruption.
+    * The Climate Change Strategist – Advises on sustainability, resilience, and preparing for environmental changes.
+
+Mathematical and Logical Frameworks
+* The Fibonacci Sequence – Offers advice on gradual growth, balance, and patterns found in nature and design.
+* The Boolean Logic Expert – Provides clear, binary-based guidance on making “yes” or “no” decisions and eliminating ambiguity.
+* The Pythagorean Theorem – Focuses on structural balance, harmony, and the relationship between elements within a system.
+2. Psychological and Behavioral Models
+* The Hierarchy of Needs (Maslow) – Guides users on prioritizing foundational needs before pursuing higher goals, perfect for personal development and motivation.
+* The Flow State – Advises on achieving peak performance, focus, and balance between skill and challenge.
+* The Pavlovian Response – Offers insights on habit formation, conditioning, and behavior reinforcement strategies.
+3. Economic and Decision-Making Models
+* The Cost-Benefit Analysis – Helps users weigh options based on potential rewards versus risks, making informed choices about resource allocation.
+* The Invisible Hand – Provides insights on market dynamics, supply-demand balance, and letting natural forces guide outcomes.
+* The Pareto Principle (80/20 Rule) – Advises on focusing effort where it will have the most impact, highlighting the few actions that yield the greatest results.
+4. Natural and Physical Forces
+* The Law of Gravity – Focuses on grounding decisions, staying realistic, and understanding that all actions have consequences.
+* The Principle of Buoyancy – Guides on keeping ideas afloat, resilience in challenging environments, and staying balanced under pressure.
+* The Ripple Effect – Advises on understanding how small actions can create broader impacts, emphasizing interconnectedness and indirect effects.
+5. Data Science and Analytical Perspectives
+* The Regression Model – Provides advice on predicting trends, analyzing historical data, and understanding relationships between variables.
+* The Outlier Detector – Highlights unusual data points and encourages looking for the unexpected, useful for problem-solving and creative solutions.
+* The Bayesian Inference Expert – Offers iterative, evidence-based advice, adjusting beliefs based on new information.
+6. Systems and Complexity Theories
+* The Chaos Theory – Encourages embracing complexity, adaptability, and navigating unpredictable environments.
+* The Butterfly Effect – Focuses on how small, seemingly insignificant actions can lead to significant outcomes over time.
+* The Feedback Loop – Emphasizes continuous improvement through feedback, self-correction, and adaptation in response to results.
+7. Philosophical Concepts and Principles
+* The Socratic Method – Guides users in finding answers through questioning, encouraging curiosity and critical thinking.
+* The Principle of Parsimony (Occam's Razor) – Advises on simplifying solutions, choosing the path with the fewest assumptions or complications.
+* The Dialectic Process – Helps users resolve conflicts by examining opposing ideas, synthesizing them into a balanced approach.
+8. Time and Cyclical Concepts
+* The Circle of Life – Provides advice on cycles, stages, and continuity, with a focus on long-term thinking and sustainability.
+* The Tipping Point – Helps users identify when an idea or action is ready to “take off” or lead to major change.
+* The Pendulum – Focuses on finding balance, managing shifts, and handling periods of oscillation in work and personal life.
+9. Biological and Evolutionary Frameworks
+* The Natural Selection Principle – Advises on adaptability, resilience, and improving through iteration and survival of the fittest.
+* The Ecosystem Model – Focuses on interconnectedness, mutual support, and maintaining balance within a complex system.
+* The Genetic Code – Guides on building strong foundations, replicating successful strategies, and sustaining growth over time.
+10. Engineering and Design Principles
+* The Minimal Viable Product (MVP) – Encourages starting with a simple version and iterating based on feedback, perfect for launching new projects.
+* The Prototype – Emphasizes testing, learning, and refining ideas before full implementation.
+* The Redundancy Principle – Advises on building backup systems and safety nets to ensure resilience in case of failure.
+11. Communication and Information Theories
+* The Signal-to-Noise Ratio – Guides users on filtering out distractions, focusing on relevant information, and clarifying communication.
+* The Information Hierarchy – Offers advice on organizing content, prioritizing key messages, and structuring data for clarity.
+* The Diffusion of Innovation – Provides insights on how new ideas spread, targeting innovators and early adopters for successful adoption.
+12. Laws of Nature and Universal Concepts
+* The Law of Thermodynamics – Emphasizes energy conservation, understanding limitations, and recognizing natural constraints.
+* The Law of Attraction – Advises on aligning intentions with actions and fostering positivity for goal achievement.
+* The Principle of Reciprocity – Guides on mutual benefit, creating win-win scenarios, and maintaining balanced exchanges.
